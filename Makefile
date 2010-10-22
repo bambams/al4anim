@@ -1,4 +1,4 @@
-A=lib/libanimation.a
+A=lib/libal4anim.a
 AR=ar rcs
 CC=gcc -Wall
 CFLAGS=-Iinclude `allegro-config --cflags`
@@ -6,7 +6,7 @@ EXE=example
 LIBDIR=lib
 MKDIR=mkdir -p
 OBJDIR=obj
-LIBS=-Llib `allegro-config --libs` -lanimation -lldpng -lpng -lz
+LIBS=-Llib `allegro-config --libs` -lal4anim -lldpng -lpng -lz
 RM=rm -fR
 
 .PHONY: clean default dirs library
