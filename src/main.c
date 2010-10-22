@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "animation.h"
+#include "a4a_animation.h"
 
 #define FATAL_ERROR(msg) \
     do \
@@ -58,7 +58,7 @@ int main()
 
     bool quit = false;
 
-    animation_t * haddokken = animation_createf(
+    a4a_animation_t * haddokken = a4a_animation_createf(
             ANIMATION_TYPE_PNG,
             10,
             5,
@@ -67,11 +67,11 @@ int main()
     if(!haddokken)
     {
         allegro_message(
-                "Failed to create haddokken animation. Aborting...");
+                "Failed to create haddokken a4a_animation. Aborting...");
         exit(1);
     }
 
-    animation_begin(haddokken, total_ticks);
+    a4a_animation_begin(haddokken, total_ticks);
 
     while(!quit && !key[KEY_ESC])
     {
@@ -89,7 +89,7 @@ int main()
                 break; 
         }
  
-        BITMAP * haddokken_frame = animation_frame(
+        BITMAP * haddokken_frame = a4a_animation_frame(
                 haddokken,
                 total_ticks);
 
@@ -104,7 +104,7 @@ int main()
                 haddokken_frame->h);
     }
 
-    animation_destroy(&haddokken);
+    a4a_animation_destroy(&haddokken);
 
     return 0;
 }

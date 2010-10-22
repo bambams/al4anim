@@ -1,7 +1,7 @@
-#include "animation.h"
+#include "a4a_animation.h"
 
-animation_t * animation_create(
-        animation_type_t type,
+a4a_animation_t * a4a_animation_create(
+        a4a_animation_type_t type,
         int ticks_per_frame,
         int num_frames,
         ...)
@@ -10,7 +10,7 @@ animation_t * animation_create(
 
     va_start(ap, num_frames);
 
-    animation_t * a = animation_createv(
+    a4a_animation_t * a = a4a_animation_createv(
             type,
             ticks_per_frame,
             num_frames,
@@ -21,8 +21,8 @@ animation_t * animation_create(
     return a;
 }
 
-animation_t * animation_createa(
-        animation_type_t type,
+a4a_animation_t * a4a_animation_createa(
+        a4a_animation_type_t type,
         int ticks_per_frame,
         int num_frames,
         char * filenames[])
@@ -45,7 +45,7 @@ animation_t * animation_createa(
             return 0;
     }
 
-    animation_t * a = malloc(sizeof(animation_t));
+    a4a_animation_t * a = malloc(sizeof(a4a_animation_t));
 
     if(!a)
         return 0;
@@ -89,13 +89,13 @@ error:
     return 0;
 }
 
-animation_t * animation_createf(
-        animation_type_t type,
+a4a_animation_t * a4a_animation_createf(
+        a4a_animation_type_t type,
         int ticks_per_frame,
         int num_frames,
         const char * filename_format)
 {
-    animation_t * a = 0;
+    a4a_animation_t * a = 0;
     char ** filenames = 0;
     int i = -1;
     int maxlen = strlen(filename_format) * 2;
@@ -129,7 +129,7 @@ animation_t * animation_createf(
 
     i--;
 
-    a = animation_createa(
+    a = a4a_animation_createa(
             type,
             ticks_per_frame,
             num_frames,
@@ -144,8 +144,8 @@ cleanup:
     return a;
 }
 
-animation_t * animation_createv(
-        animation_type_t type,
+a4a_animation_t * a4a_animation_createv(
+        a4a_animation_type_t type,
         int ticks_per_frame,
         int num_frames,
         va_list ap)
@@ -160,7 +160,7 @@ animation_t * animation_createv(
     for(i=0; i<num_frames; i++)
         filenames[i] = va_arg(ap, char *);
 
-    animation_t * a = animation_createa(
+    a4a_animation_t * a = a4a_animation_createa(
             type,
             ticks_per_frame,
             num_frames,
@@ -171,13 +171,13 @@ animation_t * animation_createv(
     return a;
 }
 
-void animation_destroy(animation_t ** p_a)
+void a4a_animation_destroy(a4a_animation_t ** p_a)
 {
     int i;
 
     assert(p_a);
 
-    animation_t * a = *p_a;
+    a4a_animation_t * a = *p_a;
 
     if(a)
     {
@@ -190,16 +190,16 @@ void animation_destroy(animation_t ** p_a)
     }
 }
 
-BITMAP * animation_begin(animation_t * a, int ticks)
+BITMAP * a4a_animation_begin(a4a_animation_t * a, int ticks)
 {
     assert(a);
 
     a->start_ticks_ = ticks;
 
-    return animation_frame(a, ticks);
+    return a4a_animation_frame(a, ticks);
 }
 
-BITMAP * animation_frame(animation_t * a, int ticks)
+BITMAP * a4a_animation_frame(a4a_animation_t * a, int ticks)
 {
     assert(a);
     assert(ticks >= a->start_ticks_);

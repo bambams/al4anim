@@ -20,7 +20,7 @@ clean:
 
 library: dirs ${A}
 
-${A}: ${OBJDIR}/animation.o
+${A}: ${OBJDIR}/a4a_animation.o
 	${AR} $@ $?
 
 ${EXE}: ${OBJDIR}/main.o
@@ -32,7 +32,7 @@ ${LIBDIR}:
 ${OBJDIR}:
 	${MKDIR} $@
 
-${OBJDIR}/animation.o: src/animation.c include/animation.h
+${OBJDIR}/a4a_animation.o: src/a4a_animation.c include/a4a_animation.h
 	${CC} -c ${CFLAGS} -o $@ $<
 
 ${OBJDIR}/main.o: src/main.c
