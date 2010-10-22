@@ -45,6 +45,57 @@ $ make library
 al4anim is currently built into a static library because of its
 relatively small size.
 
+== Installing The Library ==
+
+You need to copy include/a4a_animation.h and lib/libal4anim.a into paths
+where your compiler expects them. In GNU/Linux, a good candidate is into
+/usr, such as /usr/include and /usr/lib. Another candiate is /usr/local,
+such as /usr/local/include and /usr/local/lib. Not all distributions
+configure ld to search /usr/local, however, so you may need to add an
+entry to /etc/ld.so.conf[.d] and run `ldconfig` as root to update the
+cache.
+
+Alternatively, you can use the shell environment by setting CPATH to
+al4anim's include directory (where a4a_animation.h is) and LD_LIBRARY_PATH
+to al4anim's lib directory (where libal4anim.a is). You can also just pass
+the necessary arguments to your compiler. For example, with gcc, you can
+pass -I/path/to/al4anim/include and -L/path/to/al4anim/lib. Which option
+you choose will largely depend on your system configuration and your
+privileges on it.
+
+== Using The Library ==
+
+Once al4anim is properly installed on your system, you can use the
+library! You will need to include a4a_animation.h in any header or source
+files that reference al4anim's data types or subroutines. You will also
+need to link to a4anim. With gcc, you can do that with the -l option:
+-la4anim.
+
+For example, using gcc, your command line might be something like:
+
+gcc -o game `allegro-config --libs` -la4anim
+
+If you wish to use a4anim with PNG files then you will need a few more
+libraries as dependencies.
+
+* loadpng
+* libpng
+* zlib
+
+Your command line with gcc might then look like:
+
+gcc -o game `allegro-config --libs` -la4anim -lldpng -lpng -lz
+
+The order of libraries matters. Apparently you should keep them at the end
+of the command line. I can't say for sure, but it seems to work for me.
+Take a look at the Makefile to see the command(s) that work for me.
+
+== I Can't Get It Installed; Can I Still Use It? ==
+
+Probably, yes. You can just copy include/a4a_animation.h and
+src/a4a_animation.c into your own project and build them as if they were
+part of your project all along.
+
 == Example Program ==
 
 The example program was written using sprites that were attached by the
