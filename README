@@ -114,7 +114,11 @@ use your own files instead of the originals.
 
 == Getting Updates, Reporting Bugs, Contributing, Providing Feedback ==
 
-al4anim is offically hosted on GitHub. You can clone the repository using
+al4anim is offically hosted on GitHub:
+
+http://github.com/bamccaig/a4anim
+
+You can clone the repository using
 Git to get the updated source code. You can use the GitHub Web site to
 search for more information, look for bugs or issues, report bugs or
 issues, or contribute your own code.
