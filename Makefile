@@ -3,23 +3,31 @@ AR=ar rcs
 CC=gcc -Wall
 CFLAGS=-Iinclude `allegro-config --cflags`
 EXE=example
+LIBDIR=lib
 MKDIR=mkdir -p
 OBJDIR=obj
 LIBS=-Llib `allegro-config --libs` -lanimation -lldpng -lpng -lz
 RM=rm -fR
 
-.PHONY: clean default
+.PHONY: clean default dirs library
 
-default: clean ${OBJDIR} ${A} ${EXE}
+default: dirs library ${EXE}
+
+dirs: ${LIBDIR} ${OBJDIR}
 
 clean:
-	${RM} ${A} ${EXE} ${OBJDIR}
+	${RM} ${EXE} ${LIBDIR} ${OBJDIR}
 
- ${A}: ${OBJDIR}/animation.o
+library: dirs ${A}
+
+${A}: ${OBJDIR}/animation.o
 	${AR} $@ $?
 
 ${EXE}: ${OBJDIR}/main.o
 	${CC} -o $@ $? ${LIBS}
+
+${LIBDIR}:
+	${MKDIR} $@
 
 ${OBJDIR}:
 	${MKDIR} $@
