@@ -62,7 +62,7 @@ int main()
             ANIMATION_TYPE_PNG,
             10,
             5,
-            "ryu-haddoken%02d.png");
+            "media/ryu-haddoken%02d.png");
 
     if(!haddokken)
     {
