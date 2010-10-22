@@ -1,0 +1,63 @@
+= al4anim =
+
+al4anim is a simple animation library for Allegro 4.
+Copyright (C) 2009 Brandon McCaig
+
+This file is part of al4anim.
+
+al4anim is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+al4anim is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with al4anim.  If not, see <http://www.gnu.org/licenses/>.
+
+
+== Introduction ==
+
+al4anim was initially written by Brandon McCaig in response to a request
+for help on http://www.allegro.cc. He decided to turn it into a library
+in case it could be useful to himself or others later.
+
+== Build Instructions ==
+
+al4anim was originally written and tested in GNU/Linux. The Makefile
+should work for most similar environments, particularly unices. There are
+no directions to build for Windows at this time, though it should suffice
+to bake the source directly into your project if you must.
+
+Using GNU build tools, you should be able to build the code by running
+make.
+
+$ make
+
+If you just want the library and don't care about the example program,
+then specify you want just the library.
+
+$ make library
+
+al4anim is currently built into a static library because of its
+relatively small size.
+
+== Example Program ==
+
+The example program was written using sprites that were attached by the
+OP to the thread on http://www.allegro.cc. Since we don't know about the
+ownership or licensing of those files they are not distributed as part of
+al4anim. If you wish to run the example program then you will need to
+retreive those files from http://www.allegro.cc:
+
+http://www.allegro.cc/forums/thread/605346/886764#target
+
+Those files should be placed in a 'media' directory.
+
+If you don't want to (or can't) retreive those files then you should be
+able to use any animation files that you want. Just modify src/main.c to
+use your own files instead of the originals.
+
