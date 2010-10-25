@@ -1,27 +1,36 @@
-A=lib/libal4anim.a
 AR=ar rcs
+BINDIR=bin
 CC=gcc -Wall
 CFLAGS=-Iinclude `allegro-config --cflags`
-EXE=example
 LIBDIR=lib
 MKDIR=mkdir -p
 OBJDIR=obj
 LIBS=-Llib `allegro-config --libs` -lal4anim -lldpng -lpng -lz
 RM=rm -fR
 
-.PHONY: clean default dirs library
+A=${LIBDIR}/libal4anim.a
+EXE=${BINDIR}/example
 
-default: dirs library ${EXE}
+.PHONY: all clean default dirs example library
 
-dirs: ${LIBDIR} ${OBJDIR}
+default: dirs library
+
+all: library example
+
+dirs: ${BINDIR} ${LIBDIR} ${OBJDIR}
 
 clean:
-	${RM} ${EXE} ${LIBDIR} ${OBJDIR}
+	${RM} ${BINDIR} ${EXE} ${LIBDIR} ${OBJDIR}
+
+example: dirs ${EXE}
 
 library: dirs ${A}
 
 ${A}: ${OBJDIR}/a4a_animation.o
 	${AR} $@ $?
+
+${BINDIR}:
+	${MKDIR} $@
 
 ${EXE}: ${OBJDIR}/main.o
 	${CC} -o $@ $? ${LIBS}
