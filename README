@@ -112,6 +112,67 @@ If you don't want to (or can't) retreive those files then you should be
 able to use any animation files that you want. Just modify src/main.c to
 use your own files instead of the originals.
 
+== API ==
+
+All symbols are prefixed with a4a_, meaning Allegro 4 Animation library.
+
+a4a_animation_t * a4a_animation_create(
+        a4a_animation_type_t,
+        int,
+        int,
+        ...)
+a4a_animation_t * a4a_animation_createa(
+        a4a_animation_type_t,
+        int,
+        int,
+        char * [])
+a4a_animation_t * a4a_animation_createf(
+        a4a_animation_type_t,
+        int,
+        int,
+        const char *)
+a4a_animation_t * a4a_animation_createv(
+        a4a_animation_type_t,
+        int,
+        int,
+        va_list)
+
+    Creates a new animation, loading the respective frames. Returns a
+    pointer to an a4a_animation_t. The first three arguments are the same
+    for each: the type of animation (specifies the source image type using
+    an a4a_animation_type_t enumeration), the frame rate in ticks, and the
+    number of frames. The forth argument specifies the frame image
+    filenames.
+    
+    The default accepts a variable number of C strings. The 'a' version
+    accepts an array of C strings instead. The 'f' version accepts a
+    printf-style format string. A single data argument is passed to
+    snprintf, the frame number in the set (i+1). The 'v' version accepts
+    a va_list.
+
+void a4a_animation_destroy(a4a_animation_t **)
+
+    Destroys an animation that was created with a4a_animation_create*.
+    This frees the memory used for the frame images and for the structure
+    itself. Expects a pointer to a pointer to an a4a_animation_t. After
+    freeing the memory it sets the pointer to the animation to 0 (NULL).
+
+BITMAP * a4a_animation_begin(a4a_animation_t *, int)
+
+    The first argument is a pointer to the animation to begin. The
+    second argument is the total tick count in the application so far
+    (given by an Allegro timer). The tick count is stored for future
+    reference. Returns the first frame in the animation as an Allegro
+    BITMAP pointer.
+
+BITMAP * a4a_animation_frame(a4a_animation_t *, int)
+
+    The first argument is a pointer to the animation. The second argument
+    is the total tick count for the application so far (given by an
+    Allegro timer). The tick count is used as an offset from the starting
+    time given with a4a_animation_begin. The current frame based on this
+    offset is returned as an Allegro BITMAP pointer.
+
 == Getting Updates, Reporting Bugs, Contributing, Providing Feedback ==
 
 al4anim is offically hosted on GitHub:
