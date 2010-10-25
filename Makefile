@@ -4,9 +4,9 @@ CC=gcc -Wall
 CFLAGS=-Iinclude `allegro-config --cflags`
 LIBDIR=lib
 MKDIR=mkdir -p
-OBJDIR=obj
 LIBS=-Llib `allegro-config --libs` -lal4anim -lldpng -lpng -lz
-RM=rm -fR
+OBJDIR=obj
+RM=rm -iR
 
 A=${LIBDIR}/libal4anim.a
 EXE=${BINDIR}/example
@@ -20,7 +20,7 @@ all: library example
 dirs: ${BINDIR} ${LIBDIR} ${OBJDIR}
 
 clean:
-	${RM} ${BINDIR} ${EXE} ${LIBDIR} ${OBJDIR}
+	${RM} -f ${BINDIR} ${EXE} ${LIBDIR} ${OBJDIR}
 
 example: dirs ${EXE}
 
