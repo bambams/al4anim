@@ -1,6 +1,6 @@
 /*
  * al4anim is a simple animation library for Allegro 4.
- * Copyright (C) 2009 Brandon McCaig
+ * Copyright (C) 2010 Brandon McCaig
  *
  * This file is part of al4anim.
  *
