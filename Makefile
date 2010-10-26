@@ -3,6 +3,7 @@ BINDIR=bin
 CC=gcc -Wall
 CFLAGS=-Iinclude `allegro-config --cflags`
 CP=cp -i
+INCDIR=include
 LIBDIR=lib
 MKDIR=mkdir -p
 LIBS=-Llib `allegro-config --libs` -lal4anim -lldpng -lpng -lz
@@ -23,6 +24,7 @@ all: library example
 dirs: ${BINDIR} ${LIBDIR} ${OBJDIR}
 
 distclean:
+	if [ -f ${PREFIX}/include/a4a_animation.h ]; then ${RM} ${PREFIX}/include/a4a_animation.h; fi
 	if [ -f ${PREFIX}/${A} ]; then ${RM} ${PREFIX}/${A}; fi
 	if [ -f ${PREFIX}/${SO} ]; then ${RM} ${PREFIX}/${SO}; fi
 
@@ -34,8 +36,10 @@ clean:
 example: dirs ${EXE}
 
 install:
-	if [ -f ${A} ]; then ${CP} ${A} ${PREFIX}/lib; fi
-	if [ -f ${SO} ]; then ${CP} ${SO} ${PREFIX}/lib; fi
+	if [ -f include/a4a_animation.h ]; then ${CP} include/a4a_animation.h ${PREFIX}/include/; fi
+	if [ -f ${A} ]; then ${CP} ${A} ${PREFIX}/lib/; fi
+	if [ -f ${SO} ]; then ${CP} ${SO} ${PREFIX}/lib/; fi
+	ldconfig
 
 library: dirs static dynamic
 

@@ -37,13 +37,18 @@ make.
 
 $ make
 
-If you just want the library and don't care about the example program,
-then specify you want just the library.
+al4anim can be built into a shared or static library (or both). The
+default will be to build both. You can choose either or by specifying
+'dynamic' or 'static' as the target instead of 'library'.
 
-$ make library
+$ make dynamic
+$ make static
 
-al4anim is currently built into a static library because of its
-relatively small size.
+You can build the example program by specifying the 'example' target.
+Alternatively, you can specify the 'all' target, which will attempt to
+build everything.
+
+$ make all
 
 == Installing The Library ==
 
@@ -62,6 +67,42 @@ the necessary arguments to your compiler. For example, with gcc, you can
 pass -I/path/to/al4anim/include and -L/path/to/al4anim/lib. Which option
 you choose will largely depend on your system configuration and your
 privileges on it.
+
+There is now a rudimentary 'install' target in the Makefile, but it's
+certainly use-at-own-risk. :P It will attempt to copy the librar(y/ies) to
+PREFIX/lib. The default for PREFIX is /usr because that just happens to
+work out on my system. /usr/local could also work, but at least on Fedora
+it seems you have to manually add /usr/local to /etc/ld.so.conf.d and it
+seems that using /usr instead as a default should just work. It might not
+be best practice though. If you want something else, specify it to make:
+
+$ make install
+
+# OR
+
+$ make PREFIX=/usr/local install
+
+The 'install' target also tries to run ldconfig to update the linker
+cache. You will need root privileges to run this (as you will to install
+into /usr or /usr/local) so you'll need to elevate privileges to do this.
+Again, use at own risk. :) I entirely encourage you to manually install
+if you're comfortable doing so.
+
+== Uninstalling ==
+
+To uninstall, you basically have to undo the things that you had to do to
+install. Remove the header file(s) and library files(s) from whereever
+they were copied. The default for the Makefile is to /usr/include and
+/usr/lib. There is a 'distclean' target in the Makefile that will attempt
+to remove these for you (will need privilege escalation for the default
+PREFIX, but you can change the prefix the same as you did with the
+'install' target.
+
+$ make distclean
+
+# OR
+
+$ make PREFIX=/usr/local distclean
 
 == Using The Library ==
 
