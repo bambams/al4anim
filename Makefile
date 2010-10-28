@@ -15,6 +15,12 @@ A=${LIBDIR}/libal4anim.a
 EXE=${BINDIR}/example
 SO=lib/libal4anim.so
 
+ifdef DEBUG
+    CFLAGS+=-g3
+else
+    CFLAGS+=-O3
+endif
+
 .PHONY: all clean default dirs distclean dynamic example install library static
 
 default: dirs library
