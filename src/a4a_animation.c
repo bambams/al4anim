@@ -115,12 +115,12 @@ a4a_animation_t * a4a_animation_createf(
         int num_frames,
         const char * filename_format)
 {
+    assert(filename_format);
+
     a4a_animation_t * a = 0;
     char ** filenames = 0;
     int i = -1;
     int maxlen = strlen(filename_format) * 2;
-
-    assert(filename_format);
 
     filenames = malloc(sizeof(char *) * num_frames);
 
