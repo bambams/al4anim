@@ -21,7 +21,7 @@ else
     CFLAGS+=-O3
 endif
 
-.PHONY: all clean default dirs distclean dynamic example install library static
+.PHONY: all clean default dirs distclean dynamic example install library run static
 
 default: dirs library
 
@@ -48,6 +48,9 @@ install:
 	ldconfig
 
 library: dirs static dynamic
+
+run: all
+	LD_LIBRARY_PATH=${LIBDIR} ${EXE}
 
 static: dirs ${A}
 
