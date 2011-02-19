@@ -206,7 +206,7 @@ void a4a_animation_destroy(a4a_animation_t ** p_a)
 
         free(a->frames_);
         free(a);
-        *p_a = a;
+        *p_a = 0;
     }
 }
 
