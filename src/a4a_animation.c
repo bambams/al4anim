@@ -132,7 +132,7 @@ a4a_animation_t * a4a_animation_createf(
         char * filename;
         int len;
 
-        filename = malloc(sizeof(char) * maxlen);
+        filename = malloc(sizeof(char) * (maxlen + 1));
 
         if(!filename)
         {
@@ -140,7 +140,7 @@ a4a_animation_t * a4a_animation_createf(
             goto cleanup;
         }
 
-        len = snprintf(filename, 1024, filename_format, i + 1);
+        len = snprintf(filename, maxlen, filename_format, i + 1);
 
         filename[len] = 0;
 
