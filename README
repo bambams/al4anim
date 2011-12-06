@@ -158,38 +158,58 @@ use your own files instead of the originals.
 All symbols are prefixed with a4a_, meaning Allegro 4 Animation library.
 
 a4a_animation_t * a4a_animation_create(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         ...)
 a4a_animation_t * a4a_animation_createa(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         char * [])
+a4a_animation_t * a4a_animation_createb(
+        int,
+        int,
+        int,
+        BITMAP * [])
 a4a_animation_t * a4a_animation_createf(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         const char *)
 a4a_animation_t * a4a_animation_createv(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         va_list)
 
     Creates a new animation, loading the respective frames. Returns a
     pointer to an a4a_animation_t. The first three arguments are the same
-    for each: the type of animation (specifies the source image type using
-    an a4a_animation_type_t enumeration), the frame rate in ticks, and the
-    number of frames. The forth argument specifies the frame image
-    filenames.
+    for all except for *createb: the type of animation (specifies the
+    source image type using an a4a_sprite_type_t enumeration), the
+    frame rate in ticks, and the number of frames. The forth argument
+    specifies the frame image filenames.
     
     The default accepts a variable number of C strings. The 'a' version
     accepts an array of C strings instead. The 'f' version accepts a
     printf-style format string. A single data argument is passed to
-    snprintf, the frame number in the set (i+1). The 'v' version accepts
-    a va_list.
+    snprintf, the frame number in the set (i+1). The 'v' version accepts a
+    va_list.
+    
+    The 'b' version is rather different in that it doesn't load the
+    bitmaps for you, but expects you to pass an array of pre-loaded bitmap
+    pointers. The first argument is the frame rate in ticks, the second is
+    the number of frames, the third is an integer boolean indicating
+    whether or not the bitmaps are owned by the animation, and the last
+    argument is a pointer to an array of bitmap pointers. :) The array of
+    bitmaps is duplicated up to num_frames in length (so a stack array can
+    be used), but the bitmap pointers themselves are copied. This means
+    that if you destroy the original bitmaps then the animation bitmaps
+    will become invalid, so you shouldn't destroy the bitmaps until after
+    you've destroyed the animation. If the 'own_frames' parameter is
+    non-zero (boolean true) then the animation will itself destroy the
+    bitmaps when it is destroyed (so you should not destroy them yourself,
+    nor should you use them after the animation is destroyed).
 
 void a4a_animation_destroy(a4a_animation_t **)
 
