@@ -39,6 +39,7 @@ typedef enum a4a_sprite_type_t a4a_sprite_type_t;
 struct a4a_animation_t
 {
     int num_frames_;
+    int own_frames_;
     int start_ticks_;
     int ticks_per_frame_;
     BITMAP ** frames_;
@@ -57,6 +58,12 @@ a4a_animation_t * a4a_animation_createa(
         int,
         int,
         char * []);
+
+a4a_animation_t * a4a_animation_createb(
+        int,
+        int,
+        int,
+        BITMAP * []);
 
 a4a_animation_t * a4a_animation_createf(
         a4a_sprite_type_t,

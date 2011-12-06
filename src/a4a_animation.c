@@ -91,8 +91,9 @@ a4a_animation_t * a4a_animation_createa(
     }
 
     a->frames_ = frames;
-    a->start_ticks_ = 0;
     a->num_frames_ = num_frames;
+    a->own_frames_ = 1;
+    a->start_ticks_ = 0;
     a->ticks_per_frame_ = ticks_per_frame;
 
     return a;
@@ -106,6 +107,43 @@ error:
     free(a);
 
     return 0;
+}
+
+a4a_animation_t * a4a_animation_createb(
+        int ticks_per_frame,
+        int num_frames,
+        int own_frames,
+        BITMAP * frames[])
+{
+    assert(frames);
+
+    int i;
+
+    a4a_animation_t * a = malloc(sizeof(a4a_animation_t));
+
+    if(!a)
+        return 0;
+
+    BITMAP ** tmp = malloc(sizeof(BITMAP *) * num_frames);
+
+    if(!tmp)
+    {
+        free(a);
+        return 0;
+    }
+
+    for(i=0; i<num_frames; i++)
+    {
+        tmp[i] = frames[i];
+    }
+
+    a->frames_ = tmp;
+    a->num_frames_ = num_frames;
+    a->own_frames_ = own_frames;
+    a->start_ticks_ = 0;
+    a->ticks_per_frame_ = ticks_per_frame;
+
+    return a;
 }
 
 a4a_animation_t * a4a_animation_createf(
@@ -200,8 +238,9 @@ void a4a_animation_destroy(a4a_animation_t ** p_a)
 
     if(a)
     {
-        for(i=0; i<a->num_frames_; i++)
-            destroy_bitmap(a->frames_[i]);
+        if(a->own_frames_)
+            for(i=0; i<a->num_frames_; i++)
+                destroy_bitmap(a->frames_[i]);
 
         free(a->frames_);
         free(a);
