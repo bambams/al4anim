@@ -28,17 +28,16 @@
     #include <stdio.h>
     #include <stdlib.h>
 
-enum a4a_animation_type_t
+enum a4a_sprite_type_t
 {
-    ANIMATION_TYPE_BMP,
-    ANIMATION_TYPE_PNG
+    A4A_SPRITE_TYPE_BMP,
+    A4A_SPRITE_TYPE_PNG
 };
 
-typedef enum a4a_animation_type_t a4a_animation_type_t;
+typedef enum a4a_sprite_type_t a4a_sprite_type_t;
 
 struct a4a_animation_t
 {
-    a4a_animation_type_t type_;
     int num_frames_;
     int start_ticks_;
     int ticks_per_frame_;
@@ -48,25 +47,25 @@ struct a4a_animation_t
 typedef struct a4a_animation_t a4a_animation_t;
 
 a4a_animation_t * a4a_animation_create(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         ...);
 
 a4a_animation_t * a4a_animation_createa(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         char * []);
 
 a4a_animation_t * a4a_animation_createf(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         const char *);
 
 a4a_animation_t * a4a_animation_createv(
-        a4a_animation_type_t,
+        a4a_sprite_type_t,
         int,
         int,
         va_list);

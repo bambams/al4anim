@@ -21,7 +21,7 @@
 #include "a4a_animation.h"
 
 a4a_animation_t * a4a_animation_create(
-        a4a_animation_type_t type,
+        a4a_sprite_type_t type,
         int ticks_per_frame,
         int num_frames,
         ...)
@@ -42,7 +42,7 @@ a4a_animation_t * a4a_animation_create(
 }
 
 a4a_animation_t * a4a_animation_createa(
-        a4a_animation_type_t type,
+        a4a_sprite_type_t type,
         int ticks_per_frame,
         int num_frames,
         char * filenames[])
@@ -55,10 +55,10 @@ a4a_animation_t * a4a_animation_createa(
 
     switch(type)
     {
-        case ANIMATION_TYPE_BMP:
+        case A4A_SPRITE_TYPE_BMP:
             load = load_bitmap;
             break;
-        case ANIMATION_TYPE_PNG:
+        case A4A_SPRITE_TYPE_PNG:
             load = load_png;
             break;
         default:
@@ -94,7 +94,6 @@ a4a_animation_t * a4a_animation_createa(
     a->start_ticks_ = 0;
     a->num_frames_ = num_frames;
     a->ticks_per_frame_ = ticks_per_frame;
-    a->type_ = type;
 
     return a;
 
@@ -110,7 +109,7 @@ error:
 }
 
 a4a_animation_t * a4a_animation_createf(
-        a4a_animation_type_t type,
+        a4a_sprite_type_t type,
         int ticks_per_frame,
         int num_frames,
         const char * filename_format)
@@ -165,7 +164,7 @@ cleanup:
 }
 
 a4a_animation_t * a4a_animation_createv(
-        a4a_animation_type_t type,
+        a4a_sprite_type_t type,
         int ticks_per_frame,
         int num_frames,
         va_list ap)

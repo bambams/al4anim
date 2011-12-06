@@ -79,7 +79,7 @@ int main()
     bool quit = false;
 
     a4a_animation_t * haddokken = a4a_animation_createf(
-            ANIMATION_TYPE_PNG,
+            A4A_SPRITE_TYPE_PNG,
             10,
             5,
             "media/ryu-haddoken%02d.png");
